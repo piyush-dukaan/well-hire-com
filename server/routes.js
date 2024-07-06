@@ -13,13 +13,13 @@ router.post('/auth/signup', authController.signup);
 router.post('/auth/login', authController.login);
 
 // Company routes
-router.get('/companies', authMiddleware, companyController.listCompanies);
-router.get('/companies/:id', authMiddleware, companyController.getCompanyWithColleges);
+router.get('/companies', authMiddleware.authorize, companyController.listCompanies);
+router.get('/companies/:id', authMiddleware.authorize, companyController.getCompanyWithColleges);
 
 // Question routes
-router.post('/questions', authMiddleware, upload.single('pdf'), questionController.createQuestion);
-router.put('/questions/:id', authMiddleware, upload.single('pdf'), questionController.updateQuestion);
-router.delete('/questions/:id', authMiddleware, questionController.deleteQuestion);
-router.get('/questions/search', authMiddleware, questionController.searchQuestions);
+router.post('/questions', authMiddleware.authorize, upload.single('pdf'), questionController.createQuestion);
+router.put('/questions/:id', authMiddleware.authorize, upload.single('pdf'), questionController.updateQuestion);
+router.delete('/questions/:id', authMiddleware.authorize, questionController.deleteQuestion);
+router.get('/questions/search', authMiddleware.authorize, questionController.searchQuestions);
 
 module.exports = router;
